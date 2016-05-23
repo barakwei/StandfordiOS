@@ -16,7 +16,6 @@
 @property (strong, nonatomic) Deck *deck;
 @property (strong, nonatomic) CardMatchingGame *game;
 @property (nonatomic) NSUInteger matchNumber;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *matchNumberSegment;
 @property (weak, nonatomic) IBOutlet UILabel *lastMoveLabel;
 @end
 
@@ -31,17 +30,15 @@
 }
 
 - (NSUInteger) matchNumber {
-  return self.matchNumberSegment.selectedSegmentIndex + 2;
+  return 0;
 }
 
 - (IBAction)touchDealButton:(UIButton *)sender {
   self.game = nil;
-  self.matchNumberSegment.enabled = YES;
   [self updateUI];
 }
 
 - (IBAction)touchCardButton:(UIButton *)sender {
-  self.matchNumberSegment.enabled = NO;
   NSInteger cardIndex = [self.cardButtons indexOfObject:sender];
   [self.game chooseCardAtIndex:cardIndex];
   [self updateUI];

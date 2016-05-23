@@ -60,11 +60,11 @@
 }
 
 + (NSArray *)validNumbers {
-  return @[@"one", @"two", @"three"];
+  return @[@"1", @"2", @"3"];
 }
 
 + (NSArray *)validSymbols {
-  return @[@"diamond", @"squiggle", @"oval"];
+  return @[@"▲", @"●", @"■"];
 }
 
 + (NSArray *)validShadings {

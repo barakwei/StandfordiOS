@@ -10,4 +10,7 @@
 
 @interface SetCardGameViewController : CardGameViewController
 
+- (Deck *) createDeck;
+- (NSAttributedString *)getCardText:(Card *)card;
+
 @end

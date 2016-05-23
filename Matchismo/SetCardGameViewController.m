@@ -7,6 +7,8 @@
 //
 
 #import "SetCardGameViewController.h"
+#import "SetCardDeck.h"
+#import "SetCard.h"
 
 @interface SetCardGameViewController ()
 
@@ -14,15 +16,73 @@
 
 @implementation SetCardGameViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+// CardGameVewController interface
+- (Deck *) createDeck {
+  return [[SetCardDeck alloc] init];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (NSUInteger) matchNumber {
+  return 3;
 }
+
+- (NSAttributedString *)getCardText:(Card *)card {
+  // Samatuha
+  
+  SetCard *setCard = (SetCard *)card;
+  NSString *base = [setCard.number stringByAppendingString:setCard.symbol];
+  
+  UIColor *color = [self setCardColorToUiColor:setCard];
+  UIColor *colorWithAlpha = [color colorWithAlphaComponent:[self setCardShadingToAlpha:setCard]];
+  
+  NSDictionary<NSString *, id> *attribs = @{
+                                            NSForegroundColorAttributeName : colorWithAlpha,
+                                            NSStrokeWidthAttributeName : @-3,
+                                            NSStrokeColorAttributeName : color,
+                                            };
+  
+  NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:base attributes:attribs];
+  
+  return text;
+}
+
+- (UIColor *) setCardColorToUiColor:(SetCard *)card {
+
+  if ([card.shading isEqualToString:@"red"]) {
+    return [UIColor redColor];
+  }
+  
+  if ([card.shading isEqualToString:@"green"]) {
+    return [UIColor greenColor];
+  }
+  
+  if ([card.shading isEqualToString:@"purple"]) {
+    return [UIColor purpleColor];
+  }
+  
+  return [UIColor blackColor];
+}
+
+- (CGFloat) setCardShadingToAlpha:(SetCard *)card {
+
+  if ([card.shading isEqualToString:@"solid"]) {
+    return 1.0;
+  }
+  
+  if ([card.shading isEqualToString:@"striped"]) {
+    return 0.8;
+  }
+  
+  if ([card.shading isEqualToString:@"open"]) {
+    return 0.5;
+  }
+  
+  return 0;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+  
+}
+
 
 /*
 #pragma mark - Navigation

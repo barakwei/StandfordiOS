@@ -17,6 +17,10 @@
 
 @implementation CardMatchingGame
 
+- (NSAttributedString *)getCardText:(Card *)card {
+  return nil;
+}
+
 - (NSMutableArray *)cards
 {
   if (!_cards) _cards = [[NSMutableArray alloc] init];

@@ -23,6 +23,8 @@
 - (void)chooseCardAtIndex:(NSUInteger)index;
 - (Card *)cardAtIndex:(NSUInteger)index;
 
+- (NSAttributedString *)getCardText:(Card *)card; // Abstract
+
 @property (nonatomic, readonly) NSInteger score;
 @property (nonatomic, readonly) NSString *lastMove;
 

@@ -8,6 +8,7 @@
 
 #import "PlayingCardGameViewController.h"
 #import "PlayingCardDeck.h"
+#import "PlayingCard.h"
 
 @interface PlayingCardGameViewController ()
 
@@ -17,6 +18,14 @@
 
 - (Deck *) createDeck {
   return [[PlayingCardDeck alloc] init];
+}
+
+- (NSAttributedString *)getCardText:(Card *)card {
+  return [[NSAttributedString alloc] initWithString:((PlayingCard *)card).contents];
+}
+
+- (NSUInteger) matchNumber {
+  return 2;
 }
 
 /*

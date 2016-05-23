@@ -11,5 +11,6 @@
 @interface PlayingCardGameViewController : CardGameViewController
 
 - (Deck *) createDeck;
+- (NSAttributedString *)getCardText:(Card *)card;
 
 @end

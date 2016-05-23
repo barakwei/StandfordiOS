@@ -134,14 +134,14 @@
 				888F12BA1CEB16D40032CE57 /* CardGameViewController.m */,
 				8858E1861CF1FF64005B055F /* PlayingCardGameViewController.h */,
 				8858E1871CF1FF64005B055F /* PlayingCardGameViewController.m */,
+				8858E18C1CF2F454005B055F /* SetCardGameViewController.h */,
+				8858E18D1CF2F454005B055F /* SetCardGameViewController.m */,
 				888F12BC1CEB16D40032CE57 /* Main.storyboard */,
 				888F12E91CEB328A0032CE57 /* Model */,
 				888F12BF1CEB16D40032CE57 /* Assets.xcassets */,
 				888F12C11CEB16D40032CE57 /* LaunchScreen.storyboard */,
 				888F12C41CEB16D40032CE57 /* Info.plist */,
 				888F12B31CEB16D40032CE57 /* Supporting Files */,
-				8858E18C1CF2F454005B055F /* SetCardGameViewController.h */,
-				8858E18D1CF2F454005B055F /* SetCardGameViewController.m */,
 			);
 			path = Matchismo;
 			sourceTree = "<group>";

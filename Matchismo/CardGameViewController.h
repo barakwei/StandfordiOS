@@ -12,5 +12,6 @@
 @interface CardGameViewController : UIViewController
 
 - (Deck*) createDeck;
+- (NSUInteger) matchNumber;
 
 @end
