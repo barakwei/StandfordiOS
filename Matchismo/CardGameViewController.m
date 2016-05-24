@@ -14,6 +14,7 @@
 //@property (strong, nonatomic) Deck *deck;
 @property (nonatomic) NSUInteger matchNumber;
 @property (weak, nonatomic) IBOutlet UILabel *lastMoveLabel;
+@property (strong, nonatomic) NSMutableAttributedString *history;
 @end
 
 @implementation CardGameViewController
@@ -38,6 +39,16 @@
   return NO;
 }
 
+- (NSAttributedString *)history {
+  if (!_history) _history = [[NSMutableAttributedString alloc] initWithString:@""];
+  return _history;
+}
+
+- (void)appendHistory:(NSAttributedString *)line {
+  [self.history appendAttributedString:line];
+  [self.history appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+}
+
 - (CardMatchingGame *)game {
   if (!_game) _game = [[CardMatchingGame alloc] initWithCardCountAndMatchNumber:[self.cardButtons count]
                                                                     matchNumber:self.matchNumber
@@ -47,6 +58,7 @@
 
 - (IBAction)touchDealButton:(UIButton *)sender {
   self.game = nil;
+  self.history = nil;
   [self updateUI];
 }
 
@@ -54,6 +66,17 @@
   NSInteger cardIndex = [self.cardButtons indexOfObject:sender];
   [self.game chooseCardAtIndex:cardIndex];
   [self updateUI];
+  [self appendHistory:[self generateLastMoveString]];
+}
+
+- (NSAttributedString *) generateLastMoveString {
+  NSMutableAttributedString * moveDetails = [[NSMutableAttributedString alloc] init];
+  for (Card *lastMoveCard in self.game.lastMoveCards) {
+    [moveDetails appendAttributedString:[self titleForCard:lastMoveCard]];
+  }
+  
+  [moveDetails appendAttributedString:[[NSAttributedString alloc] initWithString:self.game.lastMove]];
+  return moveDetails;
 }
 
 - (void) updateUI {
@@ -74,21 +97,7 @@
     button.enabled = !card.isMatched;
   }
   self.scoreLabel.text = [NSString stringWithFormat:@"Score: %ld", self.game.score];
-  
-  
-  NSMutableAttributedString * moveDetails = [[NSMutableAttributedString alloc] init];
-  for (Card *lastMoveCard in self.game.lastMoveCards) {
-    [moveDetails appendAttributedString:[self titleForCard:lastMoveCard]];
-  }
-  
-  [moveDetails appendAttributedString:[[NSAttributedString alloc] initWithString:self.game.lastMove]];
-  
-  //self.game.lastMoveCards
-  
-  // TODO: move to KVO
-  //self.lastMoveLabel.text = self.game.lastMove;
-  
-  self.lastMoveLabel.attributedText = moveDetails;
+  self.lastMoveLabel.attributedText = [self generateLastMoveString];
 }
 
 //- (NSAttributedString *)titleForCard:(Card *)card {
@@ -100,12 +109,17 @@
 //  return _deck;
 //}
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+  
+}
+
 - (void)viewDidLoad {
   [super viewDidLoad];
   // Do any additional setup after loading the view, typically from a nib.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+  // At the start, game is nil and we need to have the first draw from the deck.
   [self updateUI];
 }
 

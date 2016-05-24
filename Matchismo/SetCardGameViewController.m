@@ -94,8 +94,4 @@
   self.game = self.game;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-  
-}
-
 @end
