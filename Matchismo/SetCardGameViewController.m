@@ -26,6 +26,11 @@
   return 3;
 }
 
+- (BOOL) showTitleForCard:(Card *)card {
+  return YES; // cards are always shown in Set
+}
+
+
 - (NSAttributedString *)titleForCard:(Card *)card {
   SetCard *setCard = (SetCard *)card;
   NSString *base = [setCard.number stringByAppendingString:setCard.symbol];

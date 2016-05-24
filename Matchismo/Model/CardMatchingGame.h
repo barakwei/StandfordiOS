@@ -27,5 +27,5 @@
 
 @property (nonatomic, readonly) NSInteger score;
 @property (nonatomic, readonly) NSString *lastMove;
-
+@property (nonatomic, readonly) NSArray *lastMoveCards; // of Card
 @end

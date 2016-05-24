@@ -18,5 +18,6 @@
 - (NSUInteger) matchNumber;                         // Abstract
 - (NSAttributedString *)titleForCard:(Card *)card;  // Abstract
 - (UIImage *)backgroundImageForCard:(Card *)card;   // Abstract
+- (BOOL) showTitleForCard:(Card *)card;             // Abstract
 
 @end

@@ -22,7 +22,7 @@
   return 0;
 }
 
-- (NSAttributedString *)getCardText:(Card *)card { // Abstract
+- (NSAttributedString *)titleForCard:(Card *)card { // Abstract
   return nil;
 }
 
@@ -32,6 +32,10 @@
 
 - (UIImage *)backgroundImageForCard:(Card *)card { // Abstract
   return nil;
+}
+
+- (BOOL) showTitleForCard:(Card *)card { // Abstract
+  return NO;
 }
 
 - (CardMatchingGame *)game {
@@ -56,19 +60,40 @@
   for (UIButton* button in _cardButtons) {
     NSInteger cardIndex = [self.cardButtons indexOfObject:button];
     Card* card = [self.game cardAtIndex:cardIndex];
-    [button setAttributedTitle:[self titleForCard:card]
-            forState:UIControlStateNormal];
+    
+    if ([self showTitleForCard:card]) {
+      [button setAttributedTitle:[self titleForCard:card]
+                        forState:UIControlStateNormal];
+    } else {
+      [button setAttributedTitle:[[NSAttributedString alloc] init]
+              forState:UIControlStateNormal];
+    }
+    
     [button setBackgroundImage:[self backgroundImageForCard:card]
                       forState:UIControlStateNormal];
     button.enabled = !card.isMatched;
   }
   self.scoreLabel.text = [NSString stringWithFormat:@"Score: %ld", self.game.score];
-  self.lastMoveLabel.text = self.game.lastMove;
+  
+  
+  NSMutableAttributedString * moveDetails = [[NSMutableAttributedString alloc] init];
+  for (Card *lastMoveCard in self.game.lastMoveCards) {
+    [moveDetails appendAttributedString:[self titleForCard:lastMoveCard]];
+  }
+  
+  [moveDetails appendAttributedString:[[NSAttributedString alloc] initWithString:self.game.lastMove]];
+  
+  //self.game.lastMoveCards
+  
+  // TODO: move to KVO
+  //self.lastMoveLabel.text = self.game.lastMove;
+  
+  self.lastMoveLabel.attributedText = moveDetails;
 }
 
-- (NSAttributedString *)titleForCard:(Card *)card {
-  return card.isChosen ? [self getCardText:card] : [[NSAttributedString alloc] initWithString:@""];
-}
+//- (NSAttributedString *)titleForCard:(Card *)card {
+//  return card.isChosen ? [self titleForCard:card] : [[NSAttributedString alloc] initWithString:@""];
+//}
 
 //- (Deck*)deck {
 //  if (!_deck) _deck = [self createDeck];

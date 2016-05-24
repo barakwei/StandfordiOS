@@ -25,13 +25,15 @@
 }
 
 - (NSAttributedString *)titleForCard:(Card *)card {
-  return card.isChosen ?
-    [[NSAttributedString alloc] initWithString:((PlayingCard *)card).contents] :
-    [[NSAttributedString alloc] initWithString:@""];
+  return [[NSAttributedString alloc] initWithString:((PlayingCard *)card).contents];
 }
 
 - (UIImage *)backgroundImageForCard:(Card *)card {
   return [UIImage imageNamed:card.isChosen ? @"cardfront" : @"cardback"];
+}
+
+- (BOOL) showTitleForCard:(Card *)card {
+  return card.isChosen;
 }
 
 /*
