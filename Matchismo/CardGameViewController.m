@@ -46,8 +46,12 @@
 }
 
 - (void)appendHistory:(NSAttributedString *)line {
-  [self.history appendAttributedString:line];
-  [self.history appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+  [self.history insertAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]
+                               atIndex:0];
+  [self.history insertAttributedString:line
+                               atIndex:0];
+//  [self.history appendAttributedString:line];
+//  [self.history appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
 }
 
 - (CardMatchingGame *)game {
