@@ -8,12 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "Model/Deck.h"
+#import "Model/CardMatchingGame.h"
 
 @interface CardGameViewController : UIViewController
 
-- (Deck*) createDeck;
-- (NSUInteger) matchNumber;
-- (NSAttributedString *)titleForCard:(Card *)card;
-- (UIImage *)backgroundImageForCard:(Card *)card;
+@property (strong, nonatomic) CardMatchingGame *game;
+
+- (Deck*) createDeck;                               // Abstract
+- (NSUInteger) matchNumber;                         // Abstract
+- (NSAttributedString *)titleForCard:(Card *)card;  // Abstract
+- (UIImage *)backgroundImageForCard:(Card *)card;   // Abstract
 
 @end

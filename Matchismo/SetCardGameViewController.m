@@ -16,7 +16,8 @@
 
 @implementation SetCardGameViewController
 
-// CardGameVewController interface
+#pragma mark CardGameVewController interface
+
 - (Deck *) createDeck {
   return [[SetCardDeck alloc] init];
 }
@@ -34,7 +35,7 @@
   
   NSDictionary<NSString *, id> *attribs = @{
                                             NSForegroundColorAttributeName : colorWithAlpha,
-                                            NSStrokeWidthAttributeName : @-5,
+                                            NSStrokeWidthAttributeName : @-8,
                                             NSStrokeColorAttributeName : color,
                                             };
   
@@ -71,29 +72,25 @@
   }
   
   if ([card.shading isEqualToString:@"striped"]) {
-    return 0.6;
+    return 0.5;
   }
   
   if ([card.shading isEqualToString:@"open"]) {
-    return 0.2;
+    return 0.0;
   }
   
   return 0;
 }
 
+#pragma mark Lifecycle
+
+- (void)viewDidLoad {
+  [super viewDidLoad];
+  self.game = self.game;
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
   
 }
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

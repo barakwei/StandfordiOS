@@ -7,27 +7,16 @@
 //
 
 #import "CardGameViewController.h"
-#import "Model/Deck.h"
-#import "Model/CardMatchingGame.h"
 
 @interface CardGameViewController ()
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
-@property (strong, nonatomic) Deck *deck;
-@property (strong, nonatomic) CardMatchingGame *game;
+//@property (strong, nonatomic) Deck *deck;
 @property (nonatomic) NSUInteger matchNumber;
 @property (weak, nonatomic) IBOutlet UILabel *lastMoveLabel;
 @end
 
 @implementation CardGameViewController
-
-
-- (CardMatchingGame *)game {
-  if (!_game) _game = [[CardMatchingGame alloc] initWithCardCountAndMatchNumber:[self.cardButtons count]
-                                                                    matchNumber:self.matchNumber
-                                                                      usingDeck:[self createDeck]];
-  return _game;
-}
 
 - (NSUInteger) matchNumber { // Abstract
   return 0;
@@ -39,6 +28,17 @@
 
 - (Deck*) createDeck { // Abstract
   return nil;
+}
+
+- (UIImage *)backgroundImageForCard:(Card *)card { // Abstract
+  return nil;
+}
+
+- (CardMatchingGame *)game {
+  if (!_game) _game = [[CardMatchingGame alloc] initWithCardCountAndMatchNumber:[self.cardButtons count]
+                                                                    matchNumber:self.matchNumber
+                                                                      usingDeck:[self createDeck]];
+  return _game;
 }
 
 - (IBAction)touchDealButton:(UIButton *)sender {
@@ -70,18 +70,18 @@
   return card.isChosen ? [self getCardText:card] : [[NSAttributedString alloc] initWithString:@""];
 }
 
-- (UIImage *)backgroundImageForCard:(Card *)card {
-  return [UIImage imageNamed:card.isChosen ? @"cardfront" : @"cardback"];
-}
-
-- (Deck*)deck {
-  if (!_deck) _deck = [self createDeck];
-  return _deck;
-}
+//- (Deck*)deck {
+//  if (!_deck) _deck = [self createDeck];
+//  return _deck;
+//}
 
 - (void)viewDidLoad {
   [super viewDidLoad];
   // Do any additional setup after loading the view, typically from a nib.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+  [self updateUI];
 }
 
 - (void)didReceiveMemoryWarning {

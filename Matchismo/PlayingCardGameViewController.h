@@ -10,7 +10,9 @@
 
 @interface PlayingCardGameViewController : CardGameViewController
 
-- (Deck *) createDeck;
-- (NSAttributedString *)getCardText:(Card *)card;
+- (Deck*) createDeck;
+- (NSUInteger) matchNumber;
+- (NSAttributedString *)titleForCard:(Card *)card;
+- (UIImage *)backgroundImageForCard:(Card *)card;
 
 @end
