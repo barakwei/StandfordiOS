@@ -120,6 +120,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
   // At the start, game is nil and we need to have the first draw from the deck.
+  [super viewWillAppear:animated];
   [self updateUI];
 }
 
