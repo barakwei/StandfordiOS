@@ -520,7 +520,13 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Playing Card" id="8fr-Ne-fOV"/>
+                    <navigationItem key="navigationItem" title="Playing Card" id="fdu-ZQ-IT5">
+                        <barButtonItem key="rightBarButtonItem" title="History" id="yYd-cC-Bon">
+                            <connections>
+                                <segue destination="9Vq-S3-wd7" kind="show" id="HSp-Pg-65l"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="lastMoveLabel" destination="aj2-Ys-5tM" id="FaM-Tk-by1"/>
                         <outlet property="scoreLabel" destination="Usy-l2-zTE" id="Wm7-uk-uxf"/>
@@ -558,7 +564,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="210" y="202.5"/>
+            <point key="canvasLocation" x="592.5" y="249.75"/>
         </scene>
         <!--Set-->
         <scene sceneID="XM2-lE-rmf">
@@ -1073,7 +1079,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="njR-94-OKC"/>
@@ -1161,7 +1167,13 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Set" id="zu5-r2-tuU"/>
+                    <navigationItem key="navigationItem" title="Set" id="1wk-Wb-yH1">
+                        <barButtonItem key="rightBarButtonItem" title="History" id="avf-b9-kRo">
+                            <connections>
+                                <segue destination="9Vq-S3-wd7" kind="show" id="gkV-rR-vCC"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="lastMoveLabel" destination="3dT-fa-RkM" id="EUD-c5-wqS"/>
                         <outlet property="scoreLabel" destination="NSP-oP-L8a" id="fpl-cl-HOY"/>
@@ -1205,7 +1217,77 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kah-Ke-ppT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="842" y="203"/>
+            <point key="canvasLocation" x="592.5" y="-426"/>
+        </scene>
+        <!--History View Controller-->
+        <scene sceneID="rYU-7f-LKB">
+            <objects>
+                <viewController id="9Vq-S3-wd7" customClass="HistoryViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="32K-2x-SfX"/>
+                        <viewControllerLayoutGuide type="bottom" id="gbJ-w6-TKR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hEQ-NK-lWZ">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cV6-a1-hot">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="20" y="212" width="360" height="388"/>
+                                </variation>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="History" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSO-3w-WqE">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="141" y="161" width="118" height="43"/>
+                                </variation>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="cV6-a1-hot"/>
+                                <exclude reference="VSO-3w-WqE"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="cV6-a1-hot"/>
+                                <include reference="VSO-3w-WqE"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="historyText" destination="cV6-a1-hot" id="73Y-Hl-5Ca"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hUj-En-UJq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1555.5" y="-79.5"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="zOH-Fq-9rP">
+            <objects>
+                <viewController id="iOM-62-udz" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fM1-W8-8iN"/>
+                        <viewControllerLayoutGuide type="bottom" id="bWO-CP-Ynp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fFN-CQ-fGA">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QAp-LG-uBd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3279" y="-60.75"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="e1B-5Z-PTz">
@@ -1217,16 +1299,57 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="YJl-HP-l01"/>
-                        <segue destination="25u-Sn-oBI" kind="relationship" relationship="viewControllers" id="myT-qx-qPT"/>
+                        <segue destination="K5r-vQ-fpF" kind="relationship" relationship="viewControllers" id="Jsg-UY-a9a"/>
+                        <segue destination="hkz-3Y-6qc" kind="relationship" relationship="viewControllers" id="exb-n5-vmy"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kne-Ei-671" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-255" y="208.5"/>
+            <point key="canvasLocation" x="-1065" y="-79.5"/>
+        </scene>
+        <!--Set-->
+        <scene sceneID="ijn-rN-qmU">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="K5r-vQ-fpF" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Set" id="zu5-r2-tuU"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="IXk-kW-aai">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="25u-Sn-oBI" kind="relationship" relationship="rootViewController" id="euw-wt-nvO"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fl1-7H-UFN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-205.5" y="-426"/>
+        </scene>
+        <!--Playing Card-->
+        <scene sceneID="gKe-A3-2eU">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hkz-3Y-6qc" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Playing Card" id="8fr-Ne-fOV"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hO3-xk-k8x">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="ret-VT-zB7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5k5-Mp-WSe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-205.5" y="254.25"/>
         </scene>
     </scenes>
     <resources>
         <image name="cardback" width="64" height="96"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="HSp-Pg-65l"/>
+    </inferredMetricsTieBreakers>
 </document>
