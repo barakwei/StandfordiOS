@@ -25,9 +25,7 @@
   return 3;
 }
 
-- (NSAttributedString *)getCardText:(Card *)card {
-  // Samatuha
-  
+- (NSAttributedString *)titleForCard:(Card *)card {
   SetCard *setCard = (SetCard *)card;
   NSString *base = [setCard.number stringByAppendingString:setCard.symbol];
   
@@ -36,7 +34,7 @@
   
   NSDictionary<NSString *, id> *attribs = @{
                                             NSForegroundColorAttributeName : colorWithAlpha,
-                                            NSStrokeWidthAttributeName : @-3,
+                                            NSStrokeWidthAttributeName : @-5,
                                             NSStrokeColorAttributeName : color,
                                             };
   
@@ -45,17 +43,21 @@
   return text;
 }
 
+- (UIImage *)backgroundImageForCard:(Card *)card {
+  return [UIImage imageNamed:@"cardfront"];
+}
+
 - (UIColor *) setCardColorToUiColor:(SetCard *)card {
 
-  if ([card.shading isEqualToString:@"red"]) {
+  if ([card.color isEqualToString:@"red"]) {
     return [UIColor redColor];
   }
   
-  if ([card.shading isEqualToString:@"green"]) {
+  if ([card.color isEqualToString:@"green"]) {
     return [UIColor greenColor];
   }
   
-  if ([card.shading isEqualToString:@"purple"]) {
+  if ([card.color isEqualToString:@"purple"]) {
     return [UIColor purpleColor];
   }
   
@@ -69,11 +71,11 @@
   }
   
   if ([card.shading isEqualToString:@"striped"]) {
-    return 0.8;
+    return 0.6;
   }
   
   if ([card.shading isEqualToString:@"open"]) {
-    return 0.5;
+    return 0.2;
   }
   
   return 0;

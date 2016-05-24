@@ -718,7 +718,7 @@
                                     <rect key="frame" x="99" y="373" width="40" height="60"/>
                                 </variation>
                                 <connections>
-                                    <action selector="touchCardButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0fp-ny-KCd"/>
+                                    <action selector="touchCardButton:" destination="25u-Sn-oBI" eventType="touchUpInside" id="44b-EI-yGH"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sj6-pX-Sw5">
@@ -731,7 +731,7 @@
                                     <rect key="frame" x="147" y="373" width="40" height="60"/>
                                 </variation>
                                 <connections>
-                                    <action selector="touchCardButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="knb-Xt-VM8"/>
+                                    <action selector="touchCardButton:" destination="25u-Sn-oBI" eventType="touchUpInside" id="0eB-6B-Pfw"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vzO-fW-Mb6">
@@ -770,7 +770,7 @@
                                     <rect key="frame" x="195" y="373" width="40" height="60"/>
                                 </variation>
                                 <connections>
-                                    <action selector="touchCardButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jzn-uu-T9h"/>
+                                    <action selector="touchCardButton:" destination="25u-Sn-oBI" eventType="touchUpInside" id="IVB-HH-7uN"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZEz-pP-srn">
@@ -783,7 +783,7 @@
                                     <rect key="frame" x="243" y="373" width="40" height="60"/>
                                 </variation>
                                 <connections>
-                                    <action selector="touchCardButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YYh-cz-j6L"/>
+                                    <action selector="touchCardButton:" destination="25u-Sn-oBI" eventType="touchUpInside" id="wlh-h9-mot"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oQj-Cu-XZM">
@@ -835,7 +835,7 @@
                                     <rect key="frame" x="291" y="373" width="40" height="60"/>
                                 </variation>
                                 <connections>
-                                    <action selector="touchCardButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="F81-9R-Lqf"/>
+                                    <action selector="touchCardButton:" destination="25u-Sn-oBI" eventType="touchUpInside" id="rmh-kD-f5d"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="njR-94-OKC">

@@ -13,5 +13,7 @@
 
 - (Deck*) createDeck;
 - (NSUInteger) matchNumber;
+- (NSAttributedString *)titleForCard:(Card *)card;
+- (UIImage *)backgroundImageForCard:(Card *)card;
 
 @end

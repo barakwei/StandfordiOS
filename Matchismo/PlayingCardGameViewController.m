@@ -20,12 +20,18 @@
   return [[PlayingCardDeck alloc] init];
 }
 
-- (NSAttributedString *)getCardText:(Card *)card {
-  return [[NSAttributedString alloc] initWithString:((PlayingCard *)card).contents];
-}
-
 - (NSUInteger) matchNumber {
   return 2;
+}
+
+- (NSAttributedString *)titleForCard:(Card *)card {
+  return card.isChosen ?
+    [[NSAttributedString alloc] initWithString:((PlayingCard *)card).contents] :
+    [[NSAttributedString alloc] initWithString:@""];
+}
+
+- (UIImage *)backgroundImageForCard:(Card *)card {
+  return [UIImage imageNamed:card.isChosen ? @"cardfront" : @"cardback"];
 }
 
 /*

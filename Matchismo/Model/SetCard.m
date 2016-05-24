@@ -15,13 +15,31 @@
 }
 
 - (int)match:(NSArray *)otherCards {
-  if (otherCards.count != 3) {
+  if (otherCards.count != 2) {
     return 0;
   }
   
   if (!([self setEqualsString:self.number
                        second:((SetCard *)otherCards[0]).number
                         third:((SetCard *)otherCards[1]).number])) {
+    return 0;
+  }
+  
+  if (!([self setEqualsString:self.symbol
+                       second:((SetCard *)otherCards[0]).symbol
+                        third:((SetCard *)otherCards[1]).symbol])) {
+    return 0;
+  }
+  
+  if (!([self setEqualsString:self.shading
+                       second:((SetCard *)otherCards[0]).shading
+                        third:((SetCard *)otherCards[1]).shading])) {
+    return 0;
+  }
+  
+  if (!([self setEqualsString:self.color
+                       second:((SetCard *)otherCards[0]).color
+                        third:((SetCard *)otherCards[1]).color])) {
     return 0;
   }
   

@@ -29,8 +29,16 @@
   return _game;
 }
 
-- (NSUInteger) matchNumber {
+- (NSUInteger) matchNumber { // Abstract
   return 0;
+}
+
+- (NSAttributedString *)getCardText:(Card *)card { // Abstract
+  return nil;
+}
+
+- (Deck*) createDeck { // Abstract
+  return nil;
 }
 
 - (IBAction)touchDealButton:(UIButton *)sender {
@@ -48,7 +56,7 @@
   for (UIButton* button in _cardButtons) {
     NSInteger cardIndex = [self.cardButtons indexOfObject:button];
     Card* card = [self.game cardAtIndex:cardIndex];
-    [button setTitle:[self titleForCard:card]
+    [button setAttributedTitle:[self titleForCard:card]
             forState:UIControlStateNormal];
     [button setBackgroundImage:[self backgroundImageForCard:card]
                       forState:UIControlStateNormal];
@@ -58,16 +66,12 @@
   self.lastMoveLabel.text = self.game.lastMove;
 }
 
-- (NSString *)titleForCard:(Card *)card {
-  return card.isChosen ? card.contents : @"";
+- (NSAttributedString *)titleForCard:(Card *)card {
+  return card.isChosen ? [self getCardText:card] : [[NSAttributedString alloc] initWithString:@""];
 }
 
 - (UIImage *)backgroundImageForCard:(Card *)card {
   return [UIImage imageNamed:card.isChosen ? @"cardfront" : @"cardback"];
-}
-
-- (Deck*) createDeck { // Abstract
-  return nil;
 }
 
 - (Deck*)deck {
