@@ -7,6 +7,7 @@
 //
 
 #import "CardGameViewController.h"
+#import "HistoryViewController.h"
 
 @interface CardGameViewController ()
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
@@ -109,8 +110,15 @@
 //  return _deck;
 //}
 
+#pragma mark Lifecycle
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-  
+  if ([segue.identifier isEqualToString:@"Show History"]) {
+    if ([segue.destinationViewController isKindOfClass:[HistoryViewController class]]) {
+      HistoryViewController *hvc = (HistoryViewController *)segue.destinationViewController;
+      hvc.textToShow = self.history;
+    }
+  }
 }
 
 - (void)viewDidLoad {

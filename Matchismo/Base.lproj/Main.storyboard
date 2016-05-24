@@ -523,7 +523,7 @@
                     <navigationItem key="navigationItem" title="Playing Card" id="fdu-ZQ-IT5">
                         <barButtonItem key="rightBarButtonItem" title="History" id="yYd-cC-Bon">
                             <connections>
-                                <segue destination="9Vq-S3-wd7" kind="show" id="HSp-Pg-65l"/>
+                                <segue destination="9Vq-S3-wd7" kind="show" identifier="Show History" id="HSp-Pg-65l"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1170,7 +1170,7 @@
                     <navigationItem key="navigationItem" title="Set" id="1wk-Wb-yH1">
                         <barButtonItem key="rightBarButtonItem" title="History" id="avf-b9-kRo">
                             <connections>
-                                <segue destination="9Vq-S3-wd7" kind="show" id="gkV-rR-vCC"/>
+                                <segue destination="9Vq-S3-wd7" kind="show" identifier="Show History" id="gkV-rR-vCC"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1333,6 +1333,6 @@
         <image name="cardback" width="64" height="96"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="HSp-Pg-65l"/>
+        <segue reference="gkV-rR-vCC"/>
     </inferredMetricsTieBreakers>
 </document>
