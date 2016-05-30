@@ -7,6 +7,7 @@
 //
 
 #import "CardGameViewController.h"
+#import "SetCardView.h"
 
 @interface SetCardGameViewController : CardGameViewController
 
@@ -14,5 +15,8 @@
 - (NSUInteger) matchNumber;
 - (NSAttributedString *)titleForCard:(Card *)card;
 - (UIImage *)backgroundImageForCard:(Card *)card;
+- (NSUInteger) defaultNumberOfCardsOnBoard;
+- (void) updateCardView:(CardView *)view card:(Card *)card;
+- (CardView *)createCardViewForCard:(Card *)card;
 
 @end

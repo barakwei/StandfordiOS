@@ -7,6 +7,7 @@
 //
 
 #import "SetCardGameViewController.h"
+#import "SetCardView.h"
 #import "SetCardDeck.h"
 #import "SetCard.h"
 
@@ -26,10 +27,9 @@
   return 3;
 }
 
-- (BOOL) showTitleForCard:(Card *)card {
-  return YES; // cards are always shown in Set
+- (NSUInteger) defaultNumberOfCardsOnBoard {
+  return 12;
 }
-
 
 - (NSAttributedString *)titleForCard:(Card *)card {
   SetCard *setCard = (SetCard *)card;
@@ -49,12 +49,19 @@
   return text;
 }
 
+- (CardView *)createCardViewForCard:(Card *)card {
+  SetCardView *newView = [[SetCardView alloc] init];
+  newView.card = card;
+  [self updateCardView:newView card:card];
+  return newView;
+}
+
 - (UIImage *)backgroundImageForCard:(Card *)card {
   return [UIImage imageNamed:@"cardfront"];
 }
 
-- (UIColor *) setCardColorToUiColor:(SetCard *)card {
-
+- (UIColor *)setCardColorToUiColor:(SetCard *)card {
+  
   if ([card.color isEqualToString:@"red"]) {
     return [UIColor redColor];
   }
@@ -71,7 +78,7 @@
 }
 
 - (CGFloat) setCardShadingToAlpha:(SetCard *)card {
-
+  
   if ([card.shading isEqualToString:@"solid"]) {
     return 1.0;
   }
@@ -85,6 +92,27 @@
   }
   
   return 0;
+}
+
+- (NSUInteger)numberOfCardsOnMoreCardsRequest { // Abstract
+  return 3;
+}
+
+- (void) updateCardView:(CardView *)view card:(Card *)card {
+  if ([card isKindOfClass:[SetCard class]] && [view isKindOfClass:[SetCardView class]]) {
+    SetCard *setCard = (SetCard *)card;
+    SetCardView *setCardView = (SetCardView *)view;
+    setCardView.symbol = setCard.symbol;
+    setCardView.color = setCard.color;
+    setCardView.shading = setCard.shading;
+    setCardView.number = setCard.number;
+    setCardView.highlighted = setCard.isChosen;
+  }
+  
+  if (card.isMatched) {
+    [self removeCardViewFromBoard:view];
+    [self dealCards:1];
+  }
 }
 
 #pragma mark Lifecycle

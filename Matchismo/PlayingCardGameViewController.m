@@ -9,6 +9,7 @@
 #import "PlayingCardGameViewController.h"
 #import "PlayingCardDeck.h"
 #import "PlayingCard.h"
+#import "PlayingCardView.h"
 
 @interface PlayingCardGameViewController ()
 
@@ -32,9 +33,27 @@
   return [UIImage imageNamed:card.isChosen ? @"cardfront" : @"cardback"];
 }
 
-- (BOOL) showTitleForCard:(Card *)card {
-  return card.isChosen;
+- (NSUInteger) defaultNumberOfCardsOnBoard {
+  return 20;
 }
+
+- (void) updateCardView:(CardView *)view card:(Card *)card {
+  if ([card isKindOfClass:[PlayingCard class]] && [view isKindOfClass:[PlayingCardView class]]) {
+    PlayingCard *playingCard = (PlayingCard *)card;
+    PlayingCardView *playingCardView = (PlayingCardView *)view;
+    playingCardView.rank = playingCard.rank;
+    playingCardView.suit = playingCard.suit;
+    playingCardView.faceUp = playingCard.isChosen;
+  }
+}
+
+- (CardView *)createCardViewForCard:(Card *)card {
+  PlayingCardView *newView = [[PlayingCardView alloc] init];
+  newView.card = card;
+  [self updateCardView:newView card:card];
+  return newView;
+}
+
 
 /*
 #pragma mark - Navigation
