@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Card.h"
 #import "Deck.h"
 
 @interface CardMatchingGame : NSObject
@@ -17,15 +18,21 @@
                         usingDeck:(Deck *)deck;
 
 - (instancetype)initWithCardCountAndMatchNumber:(NSUInteger)count
-                                    matchNumber:(NSUInteger)matchNum
+                                numberOfMatches:(NSUInteger)numMatches
                                       usingDeck:(Deck *)deck NS_DESIGNATED_INITIALIZER;
 
-- (void)chooseCardAtIndex:(NSUInteger)index;
+//- (void)chooseCardAtIndex:(NSUInteger)index;
+- (void)chooseCard:(Card *)card;
+
 - (Card *)cardAtIndex:(NSUInteger)index;
 
 - (NSAttributedString *)getCardText:(Card *)card; // Abstract
 
+- (Card *)dealCardFromDeck;
+
+- (NSUInteger)numberOfCardInGame;
+
 @property (nonatomic, readonly) NSInteger score;
 @property (nonatomic, readonly) NSString *lastMove;
-@property (nonatomic, readonly) NSArray *lastMoveCards; // of Card
+@property (nonatomic, readonly) NSArray<Card *> *lastMoveCards;
 @end

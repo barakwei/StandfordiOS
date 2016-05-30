@@ -46,19 +46,6 @@
   return 1;
 }
 
-- (BOOL) callSelector:(SetCard *) card property:(SEL) property
-{
-  
-  //[card performSelector:property];
-  
-  IMP imp = [card methodForSelector:property];
-  void (*func)(id, SEL) = (void *)imp;
-  func(card, property);
-
-  return YES;
-}
-
-
 - (BOOL) setEqualsString:(NSString *)first second:(NSString *)second third:(NSString *)third {
   int equalCount = 0;
   
@@ -82,7 +69,7 @@
 }
 
 + (NSArray *)validSymbols {
-  return @[@"▲", @"●", @"■"];
+  return @[@"diamond", @"squiggle", @"oval"];
 }
 
 + (NSArray *)validShadings {
