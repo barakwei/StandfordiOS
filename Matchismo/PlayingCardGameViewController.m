@@ -7,8 +7,9 @@
 //
 
 #import "PlayingCardGameViewController.h"
-#import "PlayingCardDeck.h"
+// :: Other ::
 #import "PlayingCard.h"
+#import "PlayingCardDeck.h"
 #import "PlayingCardView.h"
 
 @interface PlayingCardGameViewController ()
@@ -43,7 +44,19 @@
     PlayingCardView *playingCardView = (PlayingCardView *)view;
     playingCardView.rank = playingCard.rank;
     playingCardView.suit = playingCard.suit;
-    playingCardView.faceUp = playingCard.isChosen;
+    
+    if (playingCardView.faceUp != playingCard.isChosen) {
+      [UIView transitionWithView:view
+                        duration:0.2
+                         options:UIViewAnimationOptionTransitionFlipFromLeft
+                      animations:^{
+                        playingCardView.faceUp = playingCard.isChosen;
+                      }
+                      completion:nil];
+    }
+    
+    // playingCardView.faceUp = playingCard.isChosen
+    ;
   }
 }
 
