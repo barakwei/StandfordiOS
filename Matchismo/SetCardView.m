@@ -32,6 +32,11 @@
   [self setNeedsDisplay];
 }
 
+- (void)setHighlighted:(BOOL)highlighted {
+  _highlighted = highlighted;
+  [self setNeedsDisplay];
+}
+
 #pragma mark - Drawing
 
 #define CORNER_FONT_STANDARD_HEIGHT 180.0
@@ -57,28 +62,33 @@
   // Drawing code
   UIBezierPath *roundedRect = [UIBezierPath bezierPathWithRoundedRect:self.bounds
                                                          cornerRadius:[self cornerRadius]];
-  
   [roundedRect addClip];
   
-  [[UIColor whiteColor] setFill];
+  //self.opaque = YES;
+  
+  UIColor *backgroundColor = [UIColor whiteColor];
+  if (_highlighted) {
+    backgroundColor = [backgroundColor colorWithAlphaComponent:0.9];
+  }
+  [backgroundColor setFill];
   UIRectFill(self.bounds);
   
   [[UIColor blackColor] setStroke];
   [roundedRect stroke];
   
-  CGFloat middleX = self.bounds.size.width / 2.0;
+  CGFloat middleX = (self.bounds.size.width / 2.0);
   
   [[UIColor grayColor] setFill];
   [[UIColor greenColor] setStroke];
   
   [self setFillAndStroke];
   
-  if ([self.number isEqualToString:@"one"]) {
+  if ([self.number isEqualToString:@"1"]) {
     [self drawShapeAndShading:[self rectFromCenterPoint:CGPointMake(middleX, (1.0 * self.bounds.size.height) / 2.0)]];
-  } else if ([self.number isEqualToString:@"two"]) {
+  } else if ([self.number isEqualToString:@"2"]) {
     [self drawShapeAndShading:[self rectFromCenterPoint:CGPointMake(middleX, (1.0 * self.bounds.size.height) / 3.0)]];
     [self drawShapeAndShading:[self rectFromCenterPoint:CGPointMake(middleX, (2.0 * self.bounds.size.height) / 3.0)]];
-  } else if ([self.number isEqualToString:@"three"]) {
+  } else if ([self.number isEqualToString:@"3"]) {
     [self drawShapeAndShading:[self rectFromCenterPoint:CGPointMake(middleX, (1.0 * self.bounds.size.height) / 4.0)]];
     [self drawShapeAndShading:[self rectFromCenterPoint:CGPointMake(middleX, (2.0 * self.bounds.size.height) / 4.0)]];
     [self drawShapeAndShading:[self rectFromCenterPoint:CGPointMake(middleX, (3.0 * self.bounds.size.height) / 4.0)]];

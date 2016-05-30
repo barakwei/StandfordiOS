@@ -38,32 +38,10 @@
     [self setNeedsDisplay];
 }
 
-- (void)setRank:(NSUInteger)rank
+- (void)setRank:(NSString *)rank
 {
     _rank = rank;
     [self setNeedsDisplay];
-}
-
-- (void)setFaceUp:(BOOL)faceUp
-{
-    _faceUp = faceUp;
-    [self setNeedsDisplay];
-}
-
-- (NSString *)rankAsString
-{
-    return @[@"?",@"A",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"J",@"Q",@"K"][self.rank];
-}
-
-#pragma mark - Gesture Handling
-
-- (void)pinch:(UIPinchGestureRecognizer *)gesture
-{
-    if ((gesture.state == UIGestureRecognizerStateChanged) ||
-        (gesture.state == UIGestureRecognizerStateEnded)) {
-        self.faceCardScaleFactor *= gesture.scale;
-        gesture.scale = 1.0;
-    }
 }
 
 #pragma mark - Drawing
@@ -81,7 +59,7 @@
 {
     // Drawing code
     UIBezierPath *roundedRect = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:[self cornerRadius]];
-    
+  
     [roundedRect addClip];
     
     [[UIColor whiteColor] setFill];
@@ -91,7 +69,7 @@
     [roundedRect stroke];
     
     if (self.faceUp) {
-        UIImage *faceImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@%@", [self rankAsString], self.suit]];
+        UIImage *faceImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@%@", [self rank], self.suit]];
         if (faceImage) {
             CGRect imageRect = CGRectInset(self.bounds,
                                            self.bounds.size.width * (1.0-self.faceCardScaleFactor),
@@ -130,7 +108,7 @@
     UIFont *cornerFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     cornerFont = [cornerFont fontWithSize:cornerFont.pointSize * [self cornerScaleFactor]];
     
-    NSAttributedString *cornerText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n%@", [self rankAsString], self.suit] attributes:@{ NSFontAttributeName : cornerFont, NSParagraphStyleAttributeName : paragraphStyle }];
+    NSAttributedString *cornerText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n%@", [self rank], self.suit] attributes:@{ NSFontAttributeName : cornerFont, NSParagraphStyleAttributeName : paragraphStyle }];
     
     CGRect textBounds;
     textBounds.origin = CGPointMake([self cornerOffset], [self cornerOffset]);
@@ -151,31 +129,32 @@
 
 - (void)drawPips
 {
-    if ((self.rank == 1) || (self.rank == 5) || (self.rank == 9) || (self.rank == 3)) {
-        [self drawPipsWithHorizontalOffset:0
-                            verticalOffset:0
-                        mirroredVertically:NO];
-    }
-    if ((self.rank == 6) || (self.rank == 7) || (self.rank == 8)) {
-        [self drawPipsWithHorizontalOffset:PIP_HOFFSET_PERCENTAGE
-                            verticalOffset:0
-                        mirroredVertically:NO];
-    }
-    if ((self.rank == 2) || (self.rank == 3) || (self.rank == 7) || (self.rank == 8) || (self.rank == 10)) {
-        [self drawPipsWithHorizontalOffset:0
-                            verticalOffset:PIP_VOFFSET2_PERCENTAGE
-                        mirroredVertically:(self.rank != 7)];
-    }
-    if ((self.rank == 4) || (self.rank == 5) || (self.rank == 6) || (self.rank == 7) || (self.rank == 8) || (self.rank == 9) || (self.rank == 10)) {
-        [self drawPipsWithHorizontalOffset:PIP_HOFFSET_PERCENTAGE
-                            verticalOffset:PIP_VOFFSET3_PERCENTAGE
-                        mirroredVertically:YES];
-    }
-    if ((self.rank == 9) || (self.rank == 10)) {
-        [self drawPipsWithHorizontalOffset:PIP_HOFFSET_PERCENTAGE
-                            verticalOffset:PIP_VOFFSET1_PERCENTAGE
-                        mirroredVertically:YES];
-    }
+  if (([self.rank isEqualToString:@"1"]) || ([self.rank isEqualToString:@"5"]) || ([self.rank isEqualToString:@"9"]) || ([self.rank isEqualToString:@"3"])) {
+    [self drawPipsWithHorizontalOffset:0
+                        verticalOffset:0
+                    mirroredVertically:NO];
+  }
+  if (([self.rank isEqualToString:@"6"]) || ([self.rank isEqualToString:@"7"]) || ([self.rank isEqualToString:@"8"])) {
+    [self drawPipsWithHorizontalOffset:PIP_HOFFSET_PERCENTAGE
+                        verticalOffset:0
+                    mirroredVertically:NO];
+  }
+  if (([self.rank isEqualToString:@"2"]) || ([self.rank isEqualToString:@"3"]) || ([self.rank isEqualToString:@"7"]) || ([self.rank isEqualToString:@"8"]) || ([self.rank isEqualToString:@"10"])) {
+    [self drawPipsWithHorizontalOffset:0
+                        verticalOffset:PIP_VOFFSET2_PERCENTAGE
+                    mirroredVertically:!([self.rank isEqualToString:@"7"])];
+  }
+  if (([self.rank isEqualToString:@"4"]) || ([self.rank isEqualToString:@"5"]) || ([self.rank isEqualToString:@"6"]) || ([self.rank isEqualToString:@"7"]) || ([self.rank isEqualToString:@"8"]) || ([self.rank isEqualToString:@"9"]) || ([self.rank isEqualToString:@"10"])) {
+    [self drawPipsWithHorizontalOffset:PIP_HOFFSET_PERCENTAGE
+                        verticalOffset:PIP_VOFFSET3_PERCENTAGE
+                    mirroredVertically:YES];
+  }
+  if (([self.rank isEqualToString:@"9"]) || ([self.rank isEqualToString:@"10"])) {
+    [self drawPipsWithHorizontalOffset:PIP_HOFFSET_PERCENTAGE
+                        verticalOffset:PIP_VOFFSET1_PERCENTAGE
+                    mirroredVertically:YES];
+  }
+  
 }
 
 #define PIP_FONT_SCALE_FACTOR 0.012
