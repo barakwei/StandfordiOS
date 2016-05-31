@@ -17,6 +17,9 @@
 @property (strong, nonatomic) NSMutableAttributedString *history;
 @property (weak, nonatomic) IBOutlet UIView *gameView;
 @property (strong, nonatomic) NSMutableArray<CardView *> *cards;
+@property (strong, nonatomic) UIDynamicAnimator *stackAnimator;
+@property (strong, nonatomic) NSMutableArray<UISnapBehavior *> * stackSnaps;
+@property (nonatomic) BOOL stacked;
 @end
 
 @implementation CardGameViewController
@@ -50,6 +53,20 @@
 
 - (NSUInteger)numberOfCardsOnMoreCardsRequest { // Abstract
   return 0;
+}
+
+- (UIDynamicAnimator *)stackAnimator {
+  if (!_stackAnimator) {
+    _stackAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:_gameView];
+  }
+  return _stackAnimator;
+}
+
+- (NSMutableArray<UISnapBehavior *> *)stackSnaps; {
+  if (!_stackSnaps) {
+    _stackSnaps = [[NSMutableArray alloc] init];
+  }
+  return _stackSnaps;
 }
 
 - (NSMutableArray<CardView *> *)cards {
@@ -91,7 +108,7 @@
   if (grid.inputsAreValid) {
     for (CardView *cardView in self.cards) {
       [UIView transitionWithView:cardView
-                        duration:0.4
+                        duration:0.3
                          options:UIViewAnimationOptionCurveEaseIn
                       animations:^ {
                         NSUInteger column = (i) % grid.columnCount;
@@ -118,11 +135,19 @@
   // start from bottom right corner
   view.center = [self mainCardDeckPosition];
   
-  [self.cards addObject:view];
   UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                  initWithTarget:self
                                          action:@selector(tapCardView:)];
   [view addGestureRecognizer:tap];
+  
+  
+  UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]
+                                    initWithTarget:self
+                                    action:@selector(panCard:)];
+  
+  [view addGestureRecognizer:pan];
+  
+  [self.cards addObject:view];
   [self.gameView addSubview:view];
   [self rearrangeCardsOnBoard];
 }
@@ -151,11 +176,11 @@
 }
 
 - (IBAction)touchMoreCardsButton:(UIButton *)sender {
+  self.stacked = NO;
   [self dealCards:[self numberOfCardsOnMoreCardsRequest]];
 }
 
 - (IBAction)touchDealButton:(UIButton *)sender {
-
   // Iterate on copy b/c we remove from array
   NSArray<CardView*> * copyOfCards = self.cards.copy;
   
@@ -163,21 +188,78 @@
     [self removeCardViewFromBoard:cardView];
   }
   
+  self.stacked = NO;
   self.game = nil;
   self.history = nil;
   self.cards = nil;
-  //[[self.gameView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
   [self updateUI];
   [self rearrangeCardsOnBoard];
 }
 
 - (IBAction)tapCardView:(UITapGestureRecognizer *)sender {
-  //NSInteger cardIndex = [self.cards indexOfObject:(CardView *)[sender view]];
-  CardView *cardView = (CardView *)[sender view];
-  [self.game chooseCard:cardView.card];
-  [self updateUI];
-  [self appendHistory:[self generateLastMoveString]];
+  if (self.stacked) { // stop stack
+    self.stacked = NO;
+    [self rearrangeCardsOnBoard];
+  } else {
+    // handle normal card tap
+    CardView *cardView = (CardView *)[sender view];
+    [self.game chooseCard:cardView.card];
+    [self updateUI];
+    [self appendHistory:[self generateLastMoveString]];
+  }
 }
+
+- (IBAction)pinchBoard:(UIPinchGestureRecognizer *)sender {
+  if (self.stacked) return;
+  
+  if (sender.state == UIGestureRecognizerStateBegan) {
+    [UIView transitionWithView:self.view
+                      duration:0.4
+                       options:UIViewAnimationOptionCurveEaseIn
+                    animations:^ {
+                      for (CardView* cardView in [self cards]) {
+                        cardView.center = self.gameView.center;
+                      }
+
+                    }
+                    completion:nil];
+    self.stacked = YES;
+    
+  } else if (sender.state == UIGestureRecognizerStateEnded) {
+    //[self rearrangeCardsOnBoard];
+  }
+}
+
+- (IBAction)panCard:(UIPanGestureRecognizer *)sender {
+  if (!self.stacked) return;
+  
+  CGPoint gesturePoint = [sender locationInView:self.gameView];
+  if (sender.state == UIGestureRecognizerStateBegan) {
+    self.stackAnimator = nil;
+    self.stackSnaps = nil;
+
+    for (CardView* cardView in [self cards]) {
+      UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:cardView
+                                                      snapToPoint:gesturePoint];
+      
+      [self.stackSnaps addObject:snap];
+      [self.stackAnimator addBehavior:snap];
+    }
+    
+  } else if (sender.state == UIGestureRecognizerStateChanged) {
+    for (UISnapBehavior *snap in self.stackSnaps) {
+      snap.snapPoint = gesturePoint;
+    }
+  } else if (sender.state == UIGestureRecognizerStateEnded ||
+             sender.state == UIGestureRecognizerStateFailed) {
+
+  }
+}
+
+- (IBAction)tapBoard:(UITapGestureRecognizer *)sender {
+  [self rearrangeCardsOnBoard];
+}
+
 
 - (NSAttributedString *) generateLastMoveString {
   NSMutableAttributedString * moveDetails = [[NSMutableAttributedString alloc] init];
@@ -217,6 +299,11 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  
+  UIPinchGestureRecognizer *pinchRec = [[UIPinchGestureRecognizer alloc]
+                                     initWithTarget:self
+                                      action:@selector(pinchBoard:)];
+  [self.view addGestureRecognizer:pinchRec];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
