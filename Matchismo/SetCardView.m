@@ -12,22 +12,22 @@
 
 #pragma mark - Properties
 
-- (void)setNumber:(NSString *)number {
+- (void)setNumber:(SetCardColor)number {
   _number = number;
   [self setNeedsDisplay];
 }
 
-- (void)setSymbol:(NSString *)symbol {
+- (void)setSymbol:(SetCardSymbol)symbol {
   _symbol = symbol;
   [self setNeedsDisplay];
 }
 
-- (void)setShading:(NSString *)shading {
+- (void)setShading:(SetCardShading)shading {
   _shading = shading;
   [self setNeedsDisplay];
 }
 
-- (void)setColor:(NSString *)color {
+- (void)setColor:(SetCardColor)color {
   _color = color;
   [self setNeedsDisplay];
 }
@@ -83,12 +83,12 @@
   
   [self setFillAndStroke];
   
-  if ([self.number isEqualToString:@"1"]) {
+  if (self.number == SetCardNumberOne) {
     [self drawShapeAndShading:[self rectFromCenterPoint:CGPointMake(middleX, (1.0 * self.bounds.size.height) / 2.0)]];
-  } else if ([self.number isEqualToString:@"2"]) {
+  } else if (self.number == SetCardNumberTwo) {
     [self drawShapeAndShading:[self rectFromCenterPoint:CGPointMake(middleX, (1.0 * self.bounds.size.height) / 3.0)]];
     [self drawShapeAndShading:[self rectFromCenterPoint:CGPointMake(middleX, (2.0 * self.bounds.size.height) / 3.0)]];
-  } else if ([self.number isEqualToString:@"3"]) {
+  } else if (self.number == SetCardNumberThree) {
     [self drawShapeAndShading:[self rectFromCenterPoint:CGPointMake(middleX, (1.0 * self.bounds.size.height) / 4.0)]];
     [self drawShapeAndShading:[self rectFromCenterPoint:CGPointMake(middleX, (2.0 * self.bounds.size.height) / 4.0)]];
     [self drawShapeAndShading:[self rectFromCenterPoint:CGPointMake(middleX, (3.0 * self.bounds.size.height) / 4.0)]];
@@ -160,11 +160,11 @@
 
 - (void)drawShapeAndShading:(CGRect)rect {
   UIBezierPath *shapePath = nil;
-  if ([self.symbol isEqualToString:@"diamond"]) {
+  if (self.symbol == SetCardSymbolDiamond) {
     shapePath = [self drawDiamond:rect];
-  } else if ([self.symbol isEqualToString:@"squiggle"]) {
+  } else if (self.symbol == SetCardSymbolSquiggle) {
     shapePath = [self drawSquiggle:rect];
-  } else if ([self.symbol isEqualToString:@"oval"]) {
+  } else if (self.symbol == SetCardSymbolOval) {
     shapePath = [self drawOval:rect];
   }
 
@@ -174,7 +174,7 @@
 }
 
 - (void)drawShadingForPath:(UIBezierPath *)path {
-  if ([self.shading isEqualToString:@"striped"]) {
+  if (self.shading == SetCardShadingStriped) {
 
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSaveGState(context);
@@ -199,19 +199,19 @@
     // in any case, use stroke
   UIColor *color = [self UIColorForCard];
   [color setStroke];
-  if ([self.shading isEqualToString:@"solid"]) {
+  if (self.shading == SetCardShadingSolid) {
     [color setFill];
-  } else if ([self.shading isEqualToString:@"striped"] || [self.shading isEqualToString:@"open"]) {
+  } else if ((self.shading == SetCardShadingStriped) || (self.shading == SetCardShadingOpen)) {
     [[UIColor clearColor] setFill];
   }
 }
 
 - (UIColor*)UIColorForCard {
-  if ([self.color isEqualToString:@"red"]) {
+  if (self.color == SetCardColorRed) {
     return [UIColor redColor];
-  } else if ([self.color isEqualToString:@"green"]) {
+  } else if (self.color == SetCardColorGreen) {
     return [UIColor greenColor];
-  } else if ([self.color isEqualToString:@"purple"]) {
+  } else if (self.color == SetCardColorPurple) {
     return [UIColor purpleColor];
   }
   return nil;

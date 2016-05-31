@@ -30,7 +30,7 @@
 
 - (Card *)dealCardFromDeck;
 
-- (NSUInteger)numberOfCardInGame;
+- (NSUInteger)numCardsLeftInDeck;
 
 @property (nonatomic, readonly) NSInteger score;
 @property (nonatomic, readonly) NSString *lastMove;

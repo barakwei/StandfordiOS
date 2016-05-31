@@ -14,7 +14,7 @@
 
 @implementation Card
 
--(int)match:(NSArray *)otherCards
+-(int)match:(NSArray<Card *> *)otherCards
 {
   int score = 0;
   

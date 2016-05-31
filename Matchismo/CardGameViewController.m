@@ -19,6 +19,7 @@
 @property (strong, nonatomic) NSMutableArray<CardView *> *cards;
 @property (strong, nonatomic) UIDynamicAnimator *stackAnimator;
 @property (strong, nonatomic) NSMutableArray<UISnapBehavior *> * stackSnaps;
+@property (weak, nonatomic) IBOutlet UIButton *moreCardsButton;
 @property (nonatomic) BOOL stacked;
 @end
 
@@ -158,6 +159,10 @@
     if (!newCard) break;
     [self addCardViewToBoard:[self createCardViewForCard:newCard]];
   }
+  
+  if ([self.game numCardsLeftInDeck] == 0) {
+    _moreCardsButton.enabled = NO;
+  }
 }
 
 - (void) removeCardViewFromBoard:(CardView *)view {
@@ -182,7 +187,9 @@
 
 - (IBAction)touchDealButton:(UIButton *)sender {
   // Iterate on copy b/c we remove from array
-  NSArray<CardView*> * copyOfCards = self.cards.copy;
+  self.moreCardsButton.enabled = YES;
+  
+  NSArray<CardView*> *copyOfCards = self.cards.copy;
   
   for (CardView* cardView in copyOfCards) {
     [self removeCardViewFromBoard:cardView];
@@ -205,12 +212,13 @@
     CardView *cardView = (CardView *)[sender view];
     [self.game chooseCard:cardView.card];
     [self updateUI];
-    [self appendHistory:[self generateLastMoveString]];
   }
 }
 
 - (IBAction)pinchBoard:(UIPinchGestureRecognizer *)sender {
   if (self.stacked) return;
+  
+  NSLog(@"pinch");
   
   if (sender.state == UIGestureRecognizerStateBegan) {
     [UIView transitionWithView:self.view
@@ -220,13 +228,14 @@
                       for (CardView* cardView in [self cards]) {
                         cardView.center = self.gameView.center;
                       }
+                      NSLog(@"centering");
 
                     }
                     completion:nil];
     self.stacked = YES;
     
   } else if (sender.state == UIGestureRecognizerStateEnded) {
-    //[self rearrangeCardsOnBoard];
+    
   }
 }
 
@@ -258,17 +267,6 @@
 
 - (IBAction)tapBoard:(UITapGestureRecognizer *)sender {
   [self rearrangeCardsOnBoard];
-}
-
-
-- (NSAttributedString *) generateLastMoveString {
-  NSMutableAttributedString * moveDetails = [[NSMutableAttributedString alloc] init];
-  for (Card *lastMoveCard in self.game.lastMoveCards) {
-    [moveDetails appendAttributedString:[self titleForCard:lastMoveCard]];
-  }
-  
-  [moveDetails appendAttributedString:[[NSAttributedString alloc] initWithString:self.game.lastMove]];
-  return moveDetails;
 }
 
 - (void) updateUI {

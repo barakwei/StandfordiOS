@@ -11,10 +11,34 @@
 
 @interface SetCardView : CardView
 
-@property (strong, nonatomic) NSString *number;
-@property (strong, nonatomic) NSString *symbol;
-@property (strong, nonatomic) NSString *shading;
-@property (strong, nonatomic) NSString *color;
+typedef NS_ENUM(NSInteger, SetCardNumber) {
+  SetCardNumberOne,
+  SetCardNumberTwo,
+  SetCardNumberThree,
+};
+
+typedef NS_ENUM(NSInteger, SetCardSymbol) {
+  SetCardSymbolDiamond,
+  SetCardSymbolSquiggle,
+  SetCardSymbolOval,
+};
+
+typedef NS_ENUM(NSInteger, SetCardShading) {
+  SetCardShadingSolid,
+  SetCardShadingStriped,
+  SetCardShadingOpen
+};
+
+typedef NS_ENUM(NSInteger, SetCardColor) {
+  SetCardColorRed,
+  SetCardColorGreen,
+  SetCardColorPurple
+};
+
+@property (nonatomic) SetCardColor number;
+@property (nonatomic) SetCardSymbol symbol;
+@property (nonatomic) SetCardShading shading;
+@property (nonatomic) SetCardColor color;
 @property (nonatomic) BOOL highlighted;
 
 @end

@@ -13,7 +13,7 @@
 @property (strong, nonatomic) NSString *suit;
 @property (strong, nonatomic) NSString *rank;
 
-+ (NSArray*)validSuits;
-+ (NSArray*)validRanks;
++ (NSArray<NSString *> *)validSuits;
++ (NSArray<NSString *> *)validRanks;
 
 @end

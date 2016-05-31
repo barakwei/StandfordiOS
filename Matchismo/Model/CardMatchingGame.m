@@ -44,8 +44,8 @@
   return card;
 }
 
-- (NSUInteger)numberOfCardInGame {
-  return self.cards.count;
+- (NSUInteger)numCardsLeftInDeck {
+  return [self.deck numCardsLeftInDeck];
 }
 
 - (instancetype) initWithCardCount:(NSUInteger)count
@@ -75,7 +75,7 @@
   return (index < [self.cards count]) ? self.cards[index] : nil;
 }
 
-- (NSArray *)chosenCards:(Card *) extraCard {
+- (NSArray<Card *> *)chosenCards:(Card *) extraCard {
   NSMutableArray *chosenCards = [[NSMutableArray alloc] init];
   
   if (extraCard) {
@@ -91,7 +91,7 @@
   return chosenCards;
 }
 
-- (NSArray *)chosenCards {
+- (NSArray<Card *> *)chosenCards {
   return [self chosenCards:nil];
 }
 

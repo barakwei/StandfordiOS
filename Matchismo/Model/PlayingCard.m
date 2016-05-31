@@ -15,7 +15,7 @@
 }
 
 @synthesize suit = _suit;
-+ (NSArray*)validSuits {
++ (NSArray<NSString *> *)validSuits {
     return @[@"♥︎", @"♦︎", @"♠︎", @"♣︎"];
 }
 
@@ -30,7 +30,7 @@
     return _suit ? _suit : @"?";
 }
 
-- (int)matchRec:(NSArray *)otherCards {
+- (int)matchRec:(NSArray<Card *> *)otherCards {
   if (otherCards.count == 0)
   {
     return 0;
@@ -54,13 +54,13 @@
   return score + [card matchRec:lessCards];
 }
 
-- (int)match:(NSArray *)otherCards {
+- (int)match:(NSArray<Card *> *)otherCards {
   int totalScore = [self matchRec:otherCards];
   
   return totalScore / otherCards.count;
 }
 
-+ (NSArray*)validRanks
++ (NSArray<NSString *> *)validRanks
 {
     return @[@"A", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"J", @"Q", @"K"];
 }

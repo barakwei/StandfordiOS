@@ -31,24 +31,6 @@
   return 12;
 }
 
-- (NSAttributedString *)titleForCard:(Card *)card {
-  SetCard *setCard = (SetCard *)card;
-  NSString *base = [setCard.number stringByAppendingString:setCard.symbol];
-  
-  UIColor *color = [self setCardColorToUiColor:setCard];
-  UIColor *colorWithAlpha = [color colorWithAlphaComponent:[self setCardShadingToAlpha:setCard]];
-  
-  NSDictionary<NSString *, id> *attribs = @{
-                                            NSForegroundColorAttributeName : colorWithAlpha,
-                                            NSStrokeWidthAttributeName : @-8,
-                                            NSStrokeColorAttributeName : color,
-                                            };
-  
-  NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:base attributes:attribs];
-  
-  return text;
-}
-
 - (CardView *)createCardViewForCard:(Card *)card {
   SetCardView *newView = [[SetCardView alloc] init];
   newView.card = card;
@@ -60,40 +42,6 @@
   return [UIImage imageNamed:@"cardfront"];
 }
 
-- (UIColor *)setCardColorToUiColor:(SetCard *)card {
-  
-  if ([card.color isEqualToString:@"red"]) {
-    return [UIColor redColor];
-  }
-  
-  if ([card.color isEqualToString:@"green"]) {
-    return [UIColor greenColor];
-  }
-  
-  if ([card.color isEqualToString:@"purple"]) {
-    return [UIColor purpleColor];
-  }
-  
-  return [UIColor blackColor];
-}
-
-- (CGFloat) setCardShadingToAlpha:(SetCard *)card {
-  
-  if ([card.shading isEqualToString:@"solid"]) {
-    return 1.0;
-  }
-  
-  if ([card.shading isEqualToString:@"striped"]) {
-    return 0.5;
-  }
-  
-  if ([card.shading isEqualToString:@"open"]) {
-    return 0.0;
-  }
-  
-  return 0;
-}
-
 - (NSUInteger)numberOfCardsOnMoreCardsRequest { // Abstract
   return 3;
 }
@@ -102,10 +50,10 @@
   if ([card isKindOfClass:[SetCard class]] && [view isKindOfClass:[SetCardView class]]) {
     SetCard *setCard = (SetCard *)card;
     SetCardView *setCardView = (SetCardView *)view;
-    setCardView.symbol = setCard.symbol;
-    setCardView.color = setCard.color;
-    setCardView.shading = setCard.shading;
-    setCardView.number = setCard.number;
+    setCardView.symbol = setCard.symbol.integerValue;
+    setCardView.color = setCard.color.integerValue;
+    setCardView.shading = setCard.shading.integerValue;
+    setCardView.number = setCard.number.integerValue;
     setCardView.highlighted = setCard.isChosen;
   }
   

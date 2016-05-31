@@ -17,7 +17,6 @@
 
 - (Deck*) createDeck;                                       // Abstract
 - (NSUInteger)matchNumber;                                  // Abstract
-- (NSAttributedString *)titleForCard:(Card *)card;          // Abstract
 - (UIImage *)backgroundImageForCard:(Card *)card;           // Abstract
 - (NSUInteger)defaultNumberOfCardsOnBoard;                  // Abstract
 - (void)updateCardView:(CardView *)view card:(Card *)card;  // Abstract

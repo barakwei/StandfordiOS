@@ -66,7 +66,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-68" y="-413"/>
+            <point key="canvasLocation" x="-56" y="-413"/>
         </scene>
         <!--Set-->
         <scene sceneID="XM2-lE-rmf">
@@ -96,15 +96,16 @@
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XiN-5K-fOA">
                                 <rect key="frame" x="16" y="28" width="288" height="445"/>
-                                <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UHg-M6-Pmt">
-                                <rect key="frame" x="107" y="481" width="99" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UHg-M6-Pmt">
+                                <rect key="frame" x="116" y="481" width="90" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="90" id="kWR-GG-ek8"/>
                                 </constraints>
-                                <state key="normal" title="More Cards"/>
+                                <state key="normal" title="More Cards">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="touchMoreCardsButton:" destination="25u-Sn-oBI" eventType="touchUpInside" id="7yv-3A-KkG"/>
                                 </connections>
@@ -137,12 +138,13 @@
                     </navigationItem>
                     <connections>
                         <outlet property="gameView" destination="XiN-5K-fOA" id="YDA-bg-ks3"/>
+                        <outlet property="moreCardsButton" destination="UHg-M6-Pmt" id="wap-aj-VS3"/>
                         <outlet property="scoreLabel" destination="NSP-oP-L8a" id="fpl-cl-HOY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kah-Ke-ppT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-69" y="-1029"/>
+            <point key="canvasLocation" x="-56" y="-1030"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="e1B-5Z-PTz">

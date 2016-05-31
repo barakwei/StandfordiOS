@@ -50,4 +50,8 @@
     return randomCard;
 }
 
+- (NSUInteger)numCardsLeftInDeck {
+  return self.cards.count;
+}
+
 @end

@@ -14,70 +14,77 @@
    return @"";
 }
 
-- (int)match:(NSArray *)otherCards {
+- (int)match:(NSArray<Card *> *)otherCards {
   if (otherCards.count != 2) {
     return 0;
   }
   
-  if (!([self setEqualsString:self.number
-                       second:((SetCard *)otherCards[0]).number
-                        third:((SetCard *)otherCards[1]).number])) {
+  SetCard *secondCard = (SetCard *)otherCards[0];
+  SetCard *thirdCard = (SetCard *)otherCards[1];
+  
+  if (!([self setEquals:self.number
+                 second:secondCard.number
+                  third:thirdCard.number])) {
     return 0;
   }
   
-  if (!([self setEqualsString:self.symbol
-                       second:((SetCard *)otherCards[0]).symbol
-                        third:((SetCard *)otherCards[1]).symbol])) {
+  if (!([self setEquals:self.symbol
+                 second:secondCard.symbol
+                  third:thirdCard.symbol])) {
     return 0;
   }
   
-  if (!([self setEqualsString:self.shading
-                       second:((SetCard *)otherCards[0]).shading
-                        third:((SetCard *)otherCards[1]).shading])) {
+  if (!([self setEquals:self.shading
+                 second:secondCard.shading
+                  third:thirdCard.shading])) {
     return 0;
   }
   
-  if (!([self setEqualsString:self.color
-                       second:((SetCard *)otherCards[0]).color
-                        third:((SetCard *)otherCards[1]).color])) {
+  if (!([self setEquals:self.color
+                 second:secondCard.color
+                  third:thirdCard.color])) {
     return 0;
   }
   
   return 1;
 }
 
-- (BOOL) setEqualsString:(NSString *)first second:(NSString *)second third:(NSString *)third {
+- (BOOL) setEquals:(NSNumber *)first second:(NSNumber *)second third:(NSNumber *)third {
   int equalCount = 0;
   
-  if ([first isEqualToString:second]) {
+  if (first == second) {
     equalCount++;
   }
 
-  if ([second isEqualToString:third]) {
+  if (second == third) {
     equalCount++;
   }
 
-  if ([third isEqualToString:first]) {
+  if (third == first) {
     equalCount++;
   }
 
   return (equalCount == 0 || equalCount == 3);
 }
 
-+ (NSArray *)validNumbers {
-  return @[@"1", @"2", @"3"];
++ (NSArray<NSNumber *> *)defaultSetValues {
+  return @[@0, @1, @2];
 }
 
-+ (NSArray *)validSymbols {
-  return @[@"diamond", @"squiggle", @"oval"];
++ (NSArray<NSNumber *> *)validNumbers {
+  return [self defaultSetValues];
 }
 
-+ (NSArray *)validShadings {
-  return @[@"solid", @"striped", @"open"];
++ (NSArray<NSNumber *> *)validSymbols {
+  return [self defaultSetValues];
 }
 
-+ (NSArray *)validColors {
-  return @[@"red", @"green", @"purple"];
++ (NSArray<NSNumber *> *)validShadings {
+  return [self defaultSetValues];
+}
+
++ (NSArray<NSNumber *> *)validColors {
+  return [self defaultSetValues];
 }
 
 @end

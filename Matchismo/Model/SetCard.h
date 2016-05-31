@@ -10,14 +10,14 @@
 
 @interface SetCard : Card
 
-@property (strong, nonatomic) NSString *number;
-@property (strong, nonatomic) NSString *symbol;
-@property (strong, nonatomic) NSString *shading;
-@property (strong, nonatomic) NSString *color;
+@property (nonatomic) NSNumber *number;
+@property (nonatomic) NSNumber *symbol;
+@property (nonatomic) NSNumber *shading;
+@property (nonatomic) NSNumber *color;
 
-+ (NSArray *)validNumbers; // of NSString
-+ (NSArray *)validSymbols; // of NSString
-+ (NSArray *)validShadings; // of NSString
-+ (NSArray *)validColors; // of NSString
++ (NSArray<NSNumber *> *)validNumbers;
++ (NSArray<NSNumber *> *)validSymbols;
++ (NSArray<NSNumber *> *)validShadings;
++ (NSArray<NSNumber *> *)validColors;
 
 @end

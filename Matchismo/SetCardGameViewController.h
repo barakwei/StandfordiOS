@@ -13,7 +13,6 @@
 
 - (Deck*) createDeck;
 - (NSUInteger) matchNumber;
-- (NSAttributedString *)titleForCard:(Card *)card;
 - (UIImage *)backgroundImageForCard:(Card *)card;
 - (NSUInteger) defaultNumberOfCardsOnBoard;
 - (void) updateCardView:(CardView *)view card:(Card *)card;
