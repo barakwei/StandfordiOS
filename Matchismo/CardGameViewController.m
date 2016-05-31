@@ -86,37 +86,37 @@
   grid.cellAspectRatio = 2.0/3.0;
   grid.minimumNumberOfCells = self.cards.count;
   
-  CGRect a = self.gameView.bounds;
-  
-  NSUInteger row = 0;
-  NSUInteger column = 0;
   NSUInteger i = 0;
   
   if (grid.inputsAreValid) {
     for (CardView *cardView in self.cards) {
-      column = (i) % grid.columnCount;
-      row = i / grid.columnCount;
-      
-      CGRect bounds = [grid frameOfCellAtRow:row inColumn:column];
-      CGPoint center = [grid centerOfCellAtRow:row inColumn:column];
-      
-      cardView.frame = [grid frameOfCellAtRow:row inColumn:column];
-      //cardView.bounds =
-      cardView.center = [grid centerOfCellAtRow:row inColumn:column];
-      
+      [UIView transitionWithView:cardView
+                        duration:0.4
+                         options:UIViewAnimationOptionCurveEaseIn
+                      animations:^ {
+                        NSUInteger column = (i) % grid.columnCount;
+                        NSUInteger row = i / grid.columnCount;
+                        cardView.frame = [grid frameOfCellAtRow:row inColumn:column];
+                        cardView.center = [grid centerOfCellAtRow:row inColumn:column];
+                      }
+                      completion:nil];
       i++;
     }
   }
 }
 
-- (CGPoint) cardDeckPosition {
+- (CGPoint) mainCardDeckPosition {
   return CGPointMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height + 200);
+}
+
+- (CGPoint) garbageCardDeckPosition {
+  return CGPointMake(self.view.bounds.size.width / 2.0, -200);
 }
 
 - (void) addCardViewToBoard:(CardView *)view {
   // animate
   // start from bottom right corner
-  //view.center = [self cardDeckPosition];
+  view.center = [self mainCardDeckPosition];
   
   [self.cards addObject:view];
   UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
@@ -138,8 +138,16 @@
 - (void) removeCardViewFromBoard:(CardView *)view {
   // animate
   [self.cards removeObject:view];
-  [view removeFromSuperview];
-  [self rearrangeCardsOnBoard];
+  [UIView transitionWithView:view
+                    duration:0.4
+                     options:UIViewAnimationOptionCurveEaseIn
+                  animations:^ {
+                    view.center = [self garbageCardDeckPosition];
+                  }
+                  completion:^ (BOOL fin) {
+                    [view removeFromSuperview];
+                    [self rearrangeCardsOnBoard];
+                  }];
 }
 
 - (IBAction)touchMoreCardsButton:(UIButton *)sender {
@@ -147,10 +155,18 @@
 }
 
 - (IBAction)touchDealButton:(UIButton *)sender {
+
+  // Iterate on copy b/c we remove from array
+  NSArray<CardView*> * copyOfCards = self.cards.copy;
+  
+  for (CardView* cardView in copyOfCards) {
+    [self removeCardViewFromBoard:cardView];
+  }
+  
   self.game = nil;
   self.history = nil;
   self.cards = nil;
-  [[self.gameView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+  //[[self.gameView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
   [self updateUI];
   [self rearrangeCardsOnBoard];
 }
